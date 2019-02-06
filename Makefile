@@ -32,3 +32,4 @@ all:
 	gcc -o target/integerOverflowTwo.out src/integerOverflowTwo.c       
 	gcc -o target/memoryUninitialized.out src/memoryUninitialized.c      
 	gcc -o target/strlenMissingNull.out src/strlenMissingNull.c
+	gcc -o target/one_way_hash src/one_way_hash.c -lssl -lcrypto
