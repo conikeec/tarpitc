@@ -5,7 +5,7 @@
 
 #define SALT_LEN 8
 
-unsigned char digest[MD5_DIGEST_LENGTH];
+
 
 void log_debug(unsigned char* md) {
     int i;
@@ -16,7 +16,7 @@ void log_debug(unsigned char* md) {
     printf("\n");
 }
 
-void hash_password(char* pass, char* salt) {
+void hash_password(char* pass, char* salt, char* digest) {
     char* salted_pass = strcat(pass, salt);
     MD5((unsigned char*) salted_pass, strlen(salted_pass), digest);
 }
@@ -47,8 +47,8 @@ char* enhance_salt(char* pass) {
 }
 
 int main(int argc, char *argv[]) {
-
-    if(argc != 3) {
+    unsigned char digest[MD5_DIGEST_LENGTH];
+    if(argc != 2) {
         printf("ERROR: Input password string and salt\n");
         exit(1);
     }
@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
 
     char* pass = argv[1];
     char* slt = get_new_salt(pass);
-    hash_password(pass, slt);
+    hash_password(pass, slt, digest);
     log_debug(digest);
 
     char* new_slt = enhance_salt(slt);
